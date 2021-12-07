@@ -12,4 +12,14 @@ RSpec.describe Cell do
   it 'can return a coordinate' do
       expect(@cell.coordinate).to eq('A0')
   end
+
+  describe '#ship' do
+    before(:each) do
+      # ship = Ship.new
+    end
+    it 'returns nil when no ship is present' do
+      expect(@cell.ship).to be_nil
+    end
+  end
+
 end
