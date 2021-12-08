@@ -14,12 +14,19 @@ RSpec.describe Cell do
   end
 
   describe '#ship' do
-    before(:each) do
-      # ship = Ship.new
-    end
     it 'returns nil when no ship is present' do
       expect(@cell.ship).to be_nil
     end
   end
 
+  describe '#place_ship' do
+    before(:each) do
+      @ship = 'ship_object'
+      @cell.place_ship(@ship)
+    end
+
+    it 'places ship on itself' do
+      expect(@cell.ship).to be @ship
+    end
+  end
 end
