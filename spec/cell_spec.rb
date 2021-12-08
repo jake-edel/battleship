@@ -1,4 +1,5 @@
 require './lib/cell'
+require './lib/ship'
 
 RSpec.describe Cell do
   before(:each) do
@@ -25,7 +26,7 @@ RSpec.describe Cell do
 
   describe '#place_ship' do
     before(:each) do
-      @ship = 'ship_object'
+      @ship = Ship.new('Cruiser', 3)
       @cell.place_ship(@ship)
     end
 
@@ -36,5 +37,16 @@ RSpec.describe Cell do
     it '#empty? returns false when ship is present' do
       expect(@cell.empty?).to be false
     end
+
+    describe 'fired_upon?' do
+      before(:each)
+      end
+      it 'is false by default' do
+        expect(@cell.fired_upon?).to be false
+      end
+
+      it 'becomes true when a cell has been fired upon' do
+        @cell.fire_upon
+      end
+    end
   end
-end

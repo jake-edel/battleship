@@ -20,5 +20,4 @@ class Ship
    def sunk?
     @hits >= health
    end
-
 end
