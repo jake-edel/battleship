@@ -24,7 +24,7 @@ class Cell
 
   def fire_upon
     @fired_upon = true
-    @ship.health -= 1
+    @ship.hit
   end
 
   def render
