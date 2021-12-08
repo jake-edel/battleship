@@ -7,8 +7,6 @@ class Cell
   end
 
   def ship
-    return nil unless @ship
-
     @ship
   end
 
@@ -26,5 +24,6 @@ class Cell
 
   def fire_upon
     @fired_upon = true
+    # ship.health -= 1
   end
 end
