@@ -26,4 +26,14 @@ class Cell
     @fired_upon = true
     # ship.health -= 1
   end
+
+  def render
+    return '.' unless @fired_upon
+
+    if @ship
+      @ship.sunk? ? ( return 'X' ) : (return 'H')
+    end
+
+    'M'
+  end
 end
