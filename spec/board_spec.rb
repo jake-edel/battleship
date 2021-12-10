@@ -79,20 +79,20 @@ RSpec.describe Board do
         @j = %w[d2 d3 d4 a11]
       end
 
-      it 'returns true if array of coordinates are valid input and unoccupied' do
-        expect(@board.coordinates_valid?(@a)).to be true
-        expect(@board.coordinates_valid?(@b)).to be true
-        expect(@board.coordinates_valid?(@c)).to be true
-        expect(@board.coordinates_valid?(@d)).to be true
-        expect(@board.coordinates_valid?(@e)).to be true
-      end
-      it 'returns true if array of coordinates are valid input and unoccupied' do
-        expect(@board.coordinates_valid?(@f)).to be false
-        expect(@board.coordinates_valid?(@g)).to be false
-        expect(@board.coordinates_valid?(@h)).to be false
-        expect(@board.coordinates_valid?(@i)).to be false
-        expect(@board.coordinates_valid?(@j)).to be false
-      end
+      # it 'returns true if array of coordinates are valid input and unoccupied' do
+      #   expect(@board.coordinates_valid?(@a)).to be true
+      #   expect(@board.coordinates_valid?(@b)).to be true
+      #   expect(@board.coordinates_valid?(@c)).to be true
+      #   expect(@board.coordinates_valid?(@d)).to be true
+      #   expect(@board.coordinates_valid?(@e)).to be true
+      # end
+      # it 'returns true if array of coordinates are valid input and unoccupied' do
+      #   expect(@board.coordinates_valid?(@f)).to be false
+      #   expect(@board.coordinates_valid?(@g)).to be false
+      #   expect(@board.coordinates_valid?(@h)).to be false
+      #   expect(@board.coordinates_valid?(@i)).to be false
+      #   expect(@board.coordinates_valid?(@j)).to be false
+      # end
       before(:each) do
         # Valid Placements- Horizontal
         valid_horizontals = [@a = %w[a1 a2 a3 a4],
