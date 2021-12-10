@@ -1,10 +1,32 @@
-require './lib/ship'
-require './lib/board'
 
+require './lib/board'
+require './lib/cell'
+require './lib/ship'
 
 RSpec.describe Board do
   before(:each) do
     @board = Board.new
+  end
+  describe '#cells' do
+    it 'returns keys = coordinates value as cell objects' do
+      board = Board.new
+      expect(board.cells["A1"]).to be_a(Cell)
+      expect(board.cells["A2"]).to be_a(Cell)
+      expect(board.cells["A3"]).to be_a(Cell)
+      expect(board.cells["A4"]).to be_a(Cell)
+      expect(board.cells["B1"]).to be_a(Cell)
+      expect(board.cells["B2"]).to be_a(Cell)
+      expect(board.cells["B3"]).to be_a(Cell)
+      expect(board.cells["B4"]).to be_a(Cell)
+      expect(board.cells["C1"]).to be_a(Cell)
+      expect(board.cells["C2"]).to be_a(Cell)
+      expect(board.cells["C3"]).to be_a(Cell)
+      expect(board.cells["C4"]).to be_a(Cell)
+      expect(board.cells["D1"]).to be_a(Cell)
+      expect(board.cells["D2"]).to be_a(Cell)
+      expect(board.cells["D3"]).to be_a(Cell)
+      expect(board.cells["D4"]).to be_a(Cell)
+    end
   end
 
   describe 'valid_coordinate' do
@@ -116,76 +138,45 @@ RSpec.describe Board do
         @j = %w[d2 d3 d4 a11]
       end
       it 'returns true if ship can be placed on coordinates provided' do
-        # expect(@board.valid_placement(@ship, @a)).to be true
-        # expect(@board.valid_placement(@ship, @b)).to be true
-
-        expect(@board.valid_placement(@ship, @c)).to be true
-        # expect(@board.valid_placement(@ship, @d)).to be true
-        # expect(@board.valid_placement(@ship, @e)).to be true
+        expect(@board.valid_placement?(@ship, @c)).to be true
       end
       it 'returns false if ship cannot be placed on coordinates provided' do
-        expect(@board.valid_placement(@ship, @f)).to be false
-        expect(@board.valid_placement(@ship, @g)).to be false
-        expect(@board.valid_placement(@ship, @h)).to be false
-        expect(@board.valid_placement(@ship, @i)).to be false
-        expect(@board.valid_placement(@ship, @j)).to be false
+        expect(@board.valid_placement?(@ship, @f)).to be false
+        expect(@board.valid_placement?(@ship, @g)).to be false
+        expect(@board.valid_placement?(@ship, @h)).to be false
+        expect(@board.valid_placement?(@ship, @i)).to be false
+        expect(@board.valid_placement?(@ship, @j)).to be false
       end
     end
-  end
-  
-require './lib/board'
-require './lib/cell'
-require './lib/ship'
 
-RSpec.describe Board do
-  it 'returns keys = coordinates value as cell objects' do
-    board = Board.new
-    expect(board.cells["A1"]).to be_a(Cell)
-	  expect(board.cells["A2"]).to be_a(Cell)
-	  expect(board.cells["A3"]).to be_a(Cell)
-	  expect(board.cells["A4"]).to be_a(Cell)
-	  expect(board.cells["B1"]).to be_a(Cell)
-	  expect(board.cells["B2"]).to be_a(Cell)
-	  expect(board.cells["B3"]).to be_a(Cell)
-	  expect(board.cells["B4"]).to be_a(Cell)
-	  expect(board.cells["C1"]).to be_a(Cell)
-	  expect(board.cells["C2"]).to be_a(Cell)
-	  expect(board.cells["C3"]).to be_a(Cell)
-	  expect(board.cells["C4"]).to be_a(Cell)
-	  expect(board.cells["D1"]).to be_a(Cell)
-	  expect(board.cells["D2"]).to be_a(Cell)
-	  expect(board.cells["D3"]).to be_a(Cell)
-	  expect(board.cells["D4"]).to be_a(Cell)
-	end
+    it 'renders board' do
+      board = Board.new
 
-it 'renders board' do
-  board = Board.new
+      @cells = {
+    	"A1" => Cell.new("A1"),
+    	"A2" => Cell.new("A2"),
+    	"A3" => Cell.new("A3"),
+    	'A4' => Cell.new("A4"),
+    	"B1" => Cell.new("B1"),
+    	"B2" => Cell.new("B2"),
+    	"B3" => Cell.new("B3"),
+    	'B4' => Cell.new("B4"),
+    	"C1" => Cell.new("C1"),
+    	"C2" => Cell.new("C2"),
+    	"C3" => Cell.new("C3"),
+    	'C4' => Cell.new("C4"),
+    	"D1" => Cell.new("D1"),
+    	"D2" => Cell.new("D2"),
+    	"D3" => Cell.new("D3"),
+    	'D4' => Cell.new("D4")
+    	}
 
-  @cells = {
-	"A1" => Cell.new("A1"),
-	"A2" => Cell.new("A2"),
-	"A3" => Cell.new("A3"),
-	'A4' => Cell.new("A4"),
-	"B1" => Cell.new("B1"),
-	"B2" => Cell.new("B2"),
-	"B3" => Cell.new("B3"),
-	'B4' => Cell.new("B4"),
-	"C1" => Cell.new("C1"),
-	"C2" => Cell.new("C2"),
-	"C3" => Cell.new("C3"),
-	'C4' => Cell.new("C4"),
-	"D1" => Cell.new("D1"),
-	"D2" => Cell.new("D2"),
-	"D3" => Cell.new("D3"),
-	'D4' => Cell.new("D4")
-	}
-
-  expect(board.render).to eq(
-  "                                     1 2 3 4 \n " +
-	"                                   A . . . . \n " +
-	"                                   B . . . . \n " +
-	"                                   C . . . . \n " +
-	"                                   D . . . . \n ")
-
+      expect(board.render).to eq(
+      "1 2 3 4 \n " +
+    	"A . . . . \n " +
+    	"B . . . . \n " +
+    	"C . . . . \n " +
+    	"D . . . . \n ")
+      end
   end
 end
