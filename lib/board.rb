@@ -1,6 +1,10 @@
 class Board
   attr_reader :cells
+
   def initialize
     @cells = {}
   end
-end 
+
+  def valid_coordinate(string)
+  end
+end
