@@ -12,10 +12,14 @@ class Board
 }
   end
 
-  def valid_coordinate?(string)
-    return false unless /[a-d]{1}[1-4]{1}/i.match?(string) && string.length == 2
+  def valid_coordinate?(coordinate)
+    return false unless /[a-d][1-4]/i.match?(coordinate) && coordinate.length == 2
 
-    @cells[string.upcase].ship.nil?
+    coordinate_occupied?(coordinate)
+  end
+
+  def coordinate_occupied?(coordinate)
+    @cells[coordinate.upcase].empty?
   end
 
   def valid_placement(ship, coordinate_array)
@@ -23,7 +27,6 @@ class Board
     return false unless coordinates_valid?(coordinate_array)
     return false unless coordinates_consecutive?(coordinate_array)
     return false if coordinates_diagonal?(coordinate_array)
-    return false if coordinates_occupied?(coordinate_array)
 
     true
   end
@@ -44,7 +47,18 @@ class Board
   end
 
   def horizontally_consecutive?(coordinate_array)
+    # puts
+    # p coordinate_array
+    # p "Are the numbers consecutive? #{numbers_consecutive?(coordinate_array)}"
+    # p "Are the coordinates in the same row?#{same_row?(coordinate_array)}/n"
     numbers_consecutive?(coordinate_array) && same_row?(coordinate_array)
+  end
+
+  def vertically_consecutive?(coordinate_array)
+    # p coordinate_array
+    # p "Are the letters consecutive? #{letters_consecutive?(coordinate_array)}"
+    # p "Are the coordinates in the same column? #{same_column?(coordinate_array)}"
+    letters_consecutive?(coordinate_array) && same_column?(coordinate_array)
   end
 
   def numbers_consecutive?(coordinate_array)
@@ -52,13 +66,14 @@ class Board
     numbers.each_cons(2).all? { |x, y| y == x + 1 }
   end
 
-  def vertically_consecutive?(coordinate_array)
-    letters_consecutive?(coordinate_array) && same_column?(coordinate_array)
-  end
 
   def letters_consecutive?(coordinate_array)
-    letters = coordinate_array.map { |coordinate| coordinate.chr}.sort
+    letters = coordinate_array.map(&:chr).sort
     letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
+  end
+
+  def same_column?(coordinate_array)
+    coordinate_array.all? { |coordinate| coordinate_array.first.end_with?(coordinate[-1]) }
   end
 
   def same_row?(coordinate_array)
@@ -66,10 +81,7 @@ class Board
   end
 
   def coordinates_diagonal?(coordinate_array)
-
-  end
-
-  def coordinates_occupied?(coordinate_array)
+    numbers_consecutive?(coordinate_array) && letters_consecutive?(coordinate_array)
   end
 end
 
