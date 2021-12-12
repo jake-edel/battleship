@@ -27,11 +27,15 @@ class Cell
     @ship.hit
   end
 
-  def render
+  def render(show = false)
+    if show
+      return 'S' if @ship && !@fired_upon
+    end
+
     return '.' unless @fired_upon
 
     if @ship
-      @ship.sunk? ? ( return 'X' ) : (return 'H')
+      @ship.sunk? ? (return 'X') : (return 'H')
     end
 
     'M'

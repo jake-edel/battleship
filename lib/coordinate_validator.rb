@@ -40,25 +40,17 @@ class CoordinateValidator
   end
 
   def horizontally_consecutive?
-    # puts
-    # p @coordinate_array
-    # p "Are the numbers consecutive? #{numbers_consecutive?(@coordinate_array)}"
-    # p "Are the coordinates in the same row?#{same_row?(@coordinate_array)}/n"
     numbers_consecutive? && same_row?
   end
 
   def vertically_consecutive?
-    # p @coordinate_array
-    # p "Are the letters consecutive? #{letters_consecutive?(@coordinate_array)}"
-    # p "Are the coordinates in the same column? #{same_column?(@coordinate_array)}"
     letters_consecutive? && same_column?
   end
 
   def numbers_consecutive?
-    numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }
-    numbers.sort.each_cons(2).all? { |x, y| y == x + 1 }
+    numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }.sort
+    numbers.each_cons(2).all? { |x, y| y == x + 1 }
   end
-
 
   def letters_consecutive?
     letters = @coordinate_array.map(&:chr).sort
@@ -74,6 +66,6 @@ class CoordinateValidator
   end
 
   def coordinates_diagonal?
-    numbers_consecutive?(@coordinate_array) && letters_consecutive?(@coordinate_array)
+    numbers_consecutive? && letters_consecutive?
   end
 end
