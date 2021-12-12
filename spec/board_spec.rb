@@ -7,6 +7,7 @@ RSpec.describe Board do
   before(:each) do
     @board = Board.new
   end
+
   describe '#cells' do
     it 'returns keys = coordinates value as cell objects' do
       # Took out copies of Cell test, iterate through whole hash now
@@ -17,20 +18,18 @@ RSpec.describe Board do
 
     describe 'valid_coordinate' do
       it 'returns true when given a valid coordinate' do
-        expect(@board.valid_coordinate?('A1')).to be true
-        expect(@board.valid_coordinate?('B1')).to be true
-        expect(@board.valid_coordinate?('C1')).to be true
-        expect(@board.valid_coordinate?('D1')).to be true
-        expect(@board.valid_coordinate?('A4')).to be true
-        expect(@board.valid_coordinate?('B4')).to be true
-        expect(@board.valid_coordinate?('C4')).to be true
-        expect(@board.valid_coordinate?('D4')).to be true
+        ('A'..'D').to_a.each do |letter|
+          (1..4).to_a.each do |number|
+            expect(@board.valid_coordinate?("#{letter}#{number}")).to be true
+          end
+        end
       end
-      it 'is case insensitive' do
-        expect(@board.valid_coordinate?('a1')).to be true
-        expect(@board.valid_coordinate?('b1')).to be true
-        expect(@board.valid_coordinate?('c1')).to be true
-        expect(@board.valid_coordinate?('d1')).to be true
+      it 'returns true when given a valid coordinate' do
+        ('a'..'d').to_a.each do |letter|
+          (1..4).to_a.each do |number|
+            expect(@board.valid_coordinate?("#{letter}#{number}")).to be true
+          end
+        end
       end
 
       it 'returns false when given an invalid coordinate' do
