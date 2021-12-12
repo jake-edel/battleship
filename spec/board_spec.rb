@@ -55,75 +55,57 @@ RSpec.describe Board do
           @c = %w[a1 b1 c1 d1]
           @d = %w[a2 b2 c2 d2]
           @e = %w[d4 c4 b4 a4]
-
           # Invalid Coords
           @f = %w[dd4 c4 b4 a1]
           @g = %w[a1 b2 ca3 d4]
           @h = %w[d4 a5 b4 a1]
           @i = %w[a3 b11 c3 d2]
           @j = %w[d2 d3 d4 a11]
-        end
-
-        # it 'returns true if array of coordinates are valid input and unoccupied' do
-        #   expect(@board.coordinates_valid?(@a)).to be true
-        #   expect(@board.coordinates_valid?(@b)).to be true
-        #   expect(@board.coordinates_valid?(@c)).to be true
-        #   expect(@board.coordinates_valid?(@d)).to be true
-        #   expect(@board.coordinates_valid?(@e)).to be true
-        # end
-        # it 'returns true if array of coordinates are valid input and unoccupied' do
-        #   expect(@board.coordinates_valid?(@f)).to be false
-        #   expect(@board.coordinates_valid?(@g)).to be false
-        #   expect(@board.coordinates_valid?(@h)).to be false
-        #   expect(@board.coordinates_valid?(@i)).to be false
-        #   expect(@board.coordinates_valid?(@j)).to be false
-        # end
-        before(:each) do
           # Valid Placements- Horizontal
-          valid_horizontals = [ %w[a1 a2 a3 a4],
+          @valid_horizontals = [ %w[a1 a2 a3 a4],
           %w[b1 b2 b3 b4],
           %w[c1 c2 c3 c4],
           %w[d1 d2 d3 d4]]
-
           # Valid Placements- Horizontal (Reversed)
-           valid_horizontals_rev= [%w[a4 a3 a2 a1],
+           @valid_horizontals_rev= [%w[a4 a3 a2 a1],
           %w[b4 b3 b2 b1],
           %w[c4 c3 c2 c1],
           %w[d4 d3 d2 d1]]
-
           # Valid Placement- Horizontal (Shuffled)
-          @aaa = %w[a1 a2 a3 a4].shuffle
-          @aab = %w[b1 b2 b3 b4].shuffle
-          @aac = %w[c1 c2 c3 c4].shuffle
-          @aad = %w[d1 d2 d3 d4].shuffle
-
+           @valid_horizontals_shuf = [%w[a1 a2 a3 a4].shuffle,
+          %w[b1 b2 b3 b4].shuffle,
+          %w[c1 c2 c3 c4].shuffle,
+          %w[d1 d2 d3 d4].shuffle]
           #  Valid Placements- Vertical
-          @e = %w[a1 b1 c1 d1]
-          @f = %w[a2 b2 c2 d2]
-          @g = %w[a3 b3 c3 d3]
-          @h =%w[a4 b4 c4 d4]
-
+          @valid_vertical = [%w[a1 b1 c1 d1],
+          %w[a2 b2 c2 d2],
+          %w[a3 b3 c3 d3],
+          %w[a4 b4 c4 d4]]
           #  Valid Placements- Vertical (Reversed)
-          @ee = %w[d1 c1 b1 a1]
-          @ef = %w[d2 c2 b2 a2]
-          @eg = %w[d3 c3 b3 a3]
-          @eh = %w[d4 c4 b4 a4]
-
+          @valid_vertical_rev = [%w[d1 c1 b1 a1],
+          %w[d2 c2 b2 a2],
+          %w[d3 c3 b3 a3],
+          %w[d4 c4 b4 a4]]
           #  Valid Placements- Vertical (Shuffled)
-          @eee = %w[a1 b1 c1 d1].shuffle
-          @eef = %w[a2 b2 c2 d2].shuffle
-          @eeg = %w[a3 b3 c3 d3].shuffle
-          @eeh =%w[a4 b4 c4 d4].shuffle
-
+        @valid_vertical_shuf = [%w[a1 b1 c1 d1].shuffle,
+          %w[a2 b2 c2 d2].shuffle,
+          %w[a3 b3 c3 d3].shuffle,
+          %w[a4 b4 c4 d4].shuffle]
           # Invalid Coords
-          @f = %w[dd4 c4 b4 a1]
-          @g = %w[a1 b2 ca3 d4]
-          @h = %w[d4 a5 b4 a1]
-          @i = %w[a3 b11 c3 d2]
-          @j = %w[d2 d3 d4 a11]
+          @invalid = [%w[dd4 c4 b4 a1],
+          %w[a1 b2 ca3 d4],
+          %w[d4 a5 b4 a1],
+          %w[a3 b11 c3 d2],
+          %w[d2 d3 d4 a11]]
         end
+
         it 'returns true if ship can be placed horzontally on coordinates provided' do
+          @valid_horizontals.each do |placement|
+            p placement
+            expect(@board.valid_placement?(@ship, placement)).to be true
+          end
         end
+
         it 'returns false if ship cannot be placed on coordinates provided' do
         end
       end
@@ -133,6 +115,4 @@ RSpec.describe Board do
       end
     end
   end
-
-
-  end
+end
