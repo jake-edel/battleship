@@ -9,6 +9,7 @@ class Ship
 
   def hit
     @health -= 1
+    nil
   end
 
   def sunk?
