@@ -11,6 +11,7 @@ RSpec.describe Board do
   describe '#cells' do
     it 'returns keys = coordinates value as cell objects' do
       # Took out copies of Cell test, iterate through whole hash now
+      expect(@board.cells).to be_instance_of Hash
       @board.cells.each do |coordinate, cell|
         expect(cell).to be_instance_of Cell
       end
