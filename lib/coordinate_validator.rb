@@ -48,12 +48,12 @@ class CoordinateValidator
   end
 
   def numbers_consecutive?
-    numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }.sort
+    numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }
     numbers.each_cons(2).all? { |x, y| y == x + 1 }
   end
 
   def letters_consecutive?
-    letters = @coordinate_array.map(&:chr).sort
+    letters = @coordinate_array.map(&:chr)
     letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
   end
 
