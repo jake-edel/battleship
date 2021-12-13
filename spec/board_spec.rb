@@ -125,6 +125,19 @@ RSpec.describe Board do
       end
     end
 
+    describe '#place' do
+      it 'places ship in correct cells if placment is valid' do
+        @board.place(@crusier,["A1","A2","A3"])
+        expect(@board.cells["A1"].empty?).to eq(false)
+        expect(@board.cells["A2"].empty?).to eq(false)
+        expect(@board.cells["A3"].empty?).to eq(false)
+      end
+      it 'places correct ship' do
+        @board.place(@cruiser, ['A1', 'A2', 'A3'])
+        expect(board.cells["A1"].ship).to eq(@cruiser)
+        end
+      end
+
     it 'renders board' do
       expect(@board.render).to be_instance_of String
     end

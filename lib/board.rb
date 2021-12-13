@@ -27,6 +27,13 @@ class Board
     CoordinateValidator.new(@cells, coordinate_array).valid_placement?(ship)
   end
 
+  def place(ship, coordinate)
+    if valid_placement?(ship, coordinates)
+      coordinates.each {|coordinate| @cells[coordinate].place_ship(ship) }
+      return true #returns true if placement is successful
+    end
+  end
+
   def render
     grid = "  1 2 3 4 \n"
     ('A'..'D').to_a.each do |letter|
