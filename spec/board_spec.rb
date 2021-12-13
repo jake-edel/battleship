@@ -25,7 +25,7 @@ RSpec.describe Board do
         end
       end
     end
-    it 'returns true when given a valid coordinate' do
+    it 'is case insensitive' do
       ('a'..'d').to_a.each do |letter|
         (1..4).to_a.each do |number|
           expect(@board.valid_coordinate?("#{letter}#{number}")).to be true
@@ -36,12 +36,12 @@ RSpec.describe Board do
     it 'returns false when given an invalid coordinate' do
       expect(@board.valid_coordinate?('A22')).to be false
       expect(@board.valid_coordinate?('aa')).to be false
-      expect(@board.valid_coordinate?('a5')).to be false
+      expect(@board.valid_coordinate?('a11')).to be false
       expect(@board.valid_coordinate?('zz')).to be false
       expect(@board.valid_coordinate?('12')).to be false
       expect(@board.valid_coordinate?('ca')).to be false
       expect(@board.valid_coordinate?('e1')).to be false
-      expect(@board.valid_coordinate?('d5')).to be false
+      expect(@board.valid_coordinate?('d')).to be false
     end
   end
 
@@ -54,29 +54,34 @@ RSpec.describe Board do
         %w[a1 a2 a3 a4],
         %w[b1 b2 b3 b4],
         %w[c1 c2 c3 c4],
-        %w[d1 d2 d3 d4]]
+        %w[d1 d2 d3 d4]
+      ]
 
       #  Valid Placements- Vertical
       @valid_verticals = [
         %w[a1 b1 c1 d1],
         %w[a2 b2 c2 d2],
         %w[a3 b3 c3 d3],
-        %w[a4 b4 c4 d4]]
+        %w[a4 b4 c4 d4]
+      ]
 
       @too_small = [
         %w[A1],
         %w[A1 A2],
-        %w[A2 A3 A4]]
+        %w[A2 A3 A4]
+      ]
 
       @too_big = [
         %w[A1 A2 A3 A4 A4],
-        %w[D1 D2 D3 D4 D4]]
+        %w[D1 D2 D3 D4 D4]
+      ]
 
       @reversed = [
         %w[A4 A3 A2 A1],
         %w[B4 B3 B2 B1],
         %w[C4 C3 C2 C1],
-        %w[D4 D3 D2 D1]]
+        %w[D4 D3 D2 D1]
+      ]
 
       @diagonal = %w[A1 B2 C3 D4]
     end
@@ -120,8 +125,6 @@ RSpec.describe Board do
     end
 
     it 'renders board' do
-      p 'test'
-      require 'pry-byebug'; binding.pry
       expect(@board.render).to be_instance_of String
     end
   end
