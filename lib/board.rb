@@ -29,9 +29,9 @@ class Board
 
   def place(ship, coordinates)
     if valid_placement?(ship, coordinates)
-      coordinates.each {|coordinate| @cells[coordinates].place_ship(ship) }
-      return true #returns true if placement is successful
+      coordinates.each {|coordinate| @cells[coordinate].place_ship(ship) }
     end
+    valid_placement?(ship, coordinates)
   end
 
   def render

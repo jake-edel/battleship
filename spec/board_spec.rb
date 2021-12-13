@@ -6,6 +6,7 @@ require './lib/ship'
 RSpec.describe Board do
   before(:each) do
     @board = Board.new
+    @cruiser = Ship.new('Cruiser', 3)
   end
 
   describe '#cells' do
@@ -126,8 +127,11 @@ RSpec.describe Board do
     end
 
     describe '#place' do
+      before(:each) do
+        @board = Board.new
+        @cruiser = Ship.new('Cruiser', 3)
       it 'places ship in correct cells if placment is valid' do
-        @board.place(@crusier,["A1","A2","A3"])
+        @board.place(@cruiser,["A1","A2","A3"])
         expect(@board.cells["A1"].empty?).to eq(false)
         expect(@board.cells["A2"].empty?).to eq(false)
         expect(@board.cells["A3"].empty?).to eq(false)
@@ -137,6 +141,7 @@ RSpec.describe Board do
         expect(board.cells["A1"].ship).to eq(@cruiser)
         end
       end
+    end
 
     it 'renders board' do
       expect(@board.render).to be_instance_of String
