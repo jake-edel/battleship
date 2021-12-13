@@ -28,19 +28,14 @@ class Board
   end
 
   def render
-    top_row  =  "  1 2 3 4 \n"
-    # puts top_row
-    ("A".."D").to_a.each do |letter|
-      # print letter
+    grid = "  1 2 3 4 \n"
+    ('A'..'D').to_a.each do |letter|
+      grid += letter
       (1..4).to_a.each do |number|
-        # print " #{@cells["#{letter}#{number}"].render}"
+        grid += " #{@cells["#{letter}#{number}"].render}"
       end
-      # puts
-    end.join('')
+      grid += "\n"
+    end
+    grid
   end
 end
-
-# board = Board.new
-# board.cells["A1"].place_ship(Ship.new("Battleship", 4))
-# board.cells["A1"].fire_upon
-# board.render

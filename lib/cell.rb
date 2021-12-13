@@ -28,9 +28,7 @@ class Cell
   end
 
   def render(show = false)
-    if show
-      return 'S' if @ship && !@fired_upon
-    end
+    return 'S' if show && (@ship && !@fired_upon)
 
     return '.' unless @fired_upon
 
