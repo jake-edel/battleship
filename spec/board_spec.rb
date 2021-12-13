@@ -92,6 +92,7 @@ RSpec.describe Board do
     it 'returns true for ships of different sizes' do
       ship = Ship.new('Submarine', 2)
       expect(@board.valid_placement?(ship, %w[A1 A2])).to be true
+      
       ship = Ship.new('Cruiser', 3)
       expect(@board.valid_placement?(ship, %w[B1 C1 D1])).to be true
     end
