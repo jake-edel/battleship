@@ -27,9 +27,9 @@ class Board
     CoordinateValidator.new(@cells, coordinate_array).valid_placement?(ship)
   end
 
-  def place(ship, coordinate)
+  def place(ship, coordinates)
     if valid_placement?(ship, coordinates)
-      coordinates.each {|coordinate| @cells[coordinate].place_ship(ship) }
+      coordinates.each {|coordinate| @cells[coordinates].place_ship(ship) }
       return true #returns true if placement is successful
     end
   end
