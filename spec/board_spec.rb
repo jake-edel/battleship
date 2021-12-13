@@ -15,8 +15,9 @@ RSpec.describe Board do
         expect(cell).to be_instance_of Cell
       end
     end
+  end
 
-  describe 'valid_coordinate' do
+  describe '#valid_coordinate' do
     it 'returns true when given a valid coordinate' do
       ('A'..'D').to_a.each do |letter|
         (1..4).to_a.each do |number|
@@ -33,7 +34,7 @@ RSpec.describe Board do
     end
 
     it 'returns false when given an invalid coordinate' do
-      expect(@board.valid_coordinate?('a0')).to be false
+      expect(@board.valid_coordinate?('A22')).to be false
       expect(@board.valid_coordinate?('aa')).to be false
       expect(@board.valid_coordinate?('a5')).to be false
       expect(@board.valid_coordinate?('zz')).to be false
@@ -44,89 +45,72 @@ RSpec.describe Board do
     end
   end
 
-  describe 'valid_placement' do
-    describe 'coordinates_valid' do
-      before(:each) do
-        @ship = Ship.new('Battleship', 4)
+  describe '#valid_placement' do
+    before(:each) do
+      @ship = Ship.new('Battleship', 4)
 
-        # Valid Coords
-        @a = %w[a1 a2 a3 a4]
-        @b = %w[d4 d3 d2 d1]
-        @c = %w[a1 b1 c1 d1]
-        @d = %w[a2 b2 c2 d2]
-        @e = %w[d4 c4 b4 a4]
-        # Invalid Coords
-        @f = %w[dd4 c4 b4 a1]
-        @g = %w[a1 b2 ca3 d4]
-        @h = %w[d4 a5 b4 a1]
-        @i = %w[a3 b11 c3 d2]
-        @j = %w[d2 d3 d4 a11]
-        # Valid Placements- Horizontal
-        @valid_horizontals = [ %w[a1 a2 a3 a4],
+      # Valid Placements- Horizontal
+      @valid_horizontals = [
+        %w[a1 a2 a3 a4],
         %w[b1 b2 b3 b4],
         %w[c1 c2 c3 c4],
         %w[d1 d2 d3 d4]]
-        # Valid Placements- Horizontal (Reversed)
-         @valid_horizontals_rev= [%w[a4 a3 a2 a1],
-        %w[b4 b3 b2 b1],
-        %w[c4 c3 c2 c1],
-        %w[d4 d3 d2 d1]]
-        # Valid Placement- Horizontal (Shuffled)
-         @valid_horizontals_shuf = [%w[a1 a2 a3 a4].shuffle,
-        %w[b1 b2 b3 b4].shuffle,
-        %w[c1 c2 c3 c4].shuffle,
-        %w[d1 d2 d3 d4].shuffle]
-        #  Valid Placements- Vertical
-        @valid_verticals = [%w[a1 b1 c1 d1],
+
+      #  Valid Placements- Vertical
+      @valid_verticals = [
+        %w[a1 b1 c1 d1],
         %w[a2 b2 c2 d2],
         %w[a3 b3 c3 d3],
         %w[a4 b4 c4 d4]]
-        #  Valid Placements- Vertical (Reversed)
-        @valid_verticals_rev = [%w[d1 c1 b1 a1],
-        %w[d2 c2 b2 a2],
-        %w[d3 c3 b3 a3],
-        %w[d4 c4 b4 a4]]
-        #  Valid Placements- Vertical (Shuffled)
-      @valid_verticals_shuf = [%w[a1 b1 c1 d1].shuffle,
-        %w[a2 b2 c2 d2].shuffle,
-        %w[a3 b3 c3 d3].shuffle,
-        %w[a4 b4 c4 d4].shuffle]
-        # Invalid Coords
-        @invalid = [%w[dd4 c4 b4 a1],
-        %w[a1 b2 ca3 d4],
-        %w[d4 a5 b4 a1],
-        %w[a3 b11 c3 d2],
-        %w[d2 d3 d4 a11]]
-      end
 
-      it 'returns true if ship can be placed horzontally on coordinates provided' do
-        @valid_horizontals.each do |placement|
-          expect(@board.valid_placement?(@ship, placement)).to be true
-        end
-        @valid_horizontals_shuf.each do |placement|
-          expect(@board.valid_placement?(@ship, placement)).to be true
-        end
-        @valid_horizontals_rev.each do |placement|
-          expect(@board.valid_placement?(@ship, placement)).to be true
-        end
-      end
+      @too_small = [
+        %w[A1],
+        %w[A1 A2],
+        %w[A2 A3 A4]]
 
-      it 'returns true if a ship can be placed vertically on coordinated provided' do
-        @valid_verticals.each do |placement|
-          expect(@board.valid_placement?(@ship, placement)).to be true
-        end
-        @valid_verticals_shuf.each do |placement|
-          expect(@board.valid_placement?(@ship, placement)).to be true
-        end
-        @valid_verticals_rev.each do |placement|
-          expect(@board.valid_placement?(@ship, placement)).to be true
-        end
+      @too_big = [
+        %w[A1 A2 A3 A4 A4],
+        %w[D1 D2 D3 D4 D4]]
+
+      @reversed = [
+        %w[A4 A3 A2 A1],
+        %w[B4 B3 B2 B1],
+        %w[C4 C3 C2 C1],
+        %w[D4 D3 D2 D1]]
+
+      @diagonal = %w[A1 B2 C3 D4]
+    end
+
+    it 'returns true if ship can be placed on coordinates provided' do
+      @valid_horizontals.each do |placement|
+        expect(@board.valid_placement?(@ship, placement)).to be true
+      end
+      @valid_verticals.each do |placement|
+        expect(@board.valid_placement?(@ship, placement)).to be true
       end
     end
 
-    it 'returns false if ship cannot be placed on coordinates provided' do
+    it 'returns false if space is too small/large' do
+      @too_small.each do |placement|
+        expect(@board.valid_placement?(@ship, placement)).to be false
+      end
+
+      @too_big.each do |placement|
+        expect(@board.valid_placement?(@ship, placement)).to be false
+      end
     end
-  end
+
+    it 'returns false is spaces are non-consecutive' do
+      @reversed.each do |placement|
+        expect(@board.valid_placement?(@ship, placement)).to be false
+      end
+    end
+
+    it 'returns false if spaces are diagonal' do
+      @diagonal.each do |placement|
+        expect(@board.valid_placement?(@ship, placement)).to be false
+      end
+    end
 
     it 'renders board' do
       expect(@board.render).to be_instance_of String
