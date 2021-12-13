@@ -27,7 +27,7 @@ class Cell
     @ship.hit
   end
 
-  def render(show = false)
+  def render(show: false)
     return 'S' if show && (@ship && !@fired_upon)
 
     return '.' unless @fired_upon
