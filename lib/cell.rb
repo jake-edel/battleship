@@ -24,10 +24,10 @@ class Cell
 
   def fire_upon
     @fired_upon = true
-    @ship&.hit 
+    @ship&.hit
   end
 
-  def render(show: false)
+  def render(show = false)
     return 'S' if show && (@ship && !@fired_upon)
 
     return '.' unless @fired_upon
