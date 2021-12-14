@@ -10,8 +10,8 @@ class Game
   def start
     print_start_message
     @player.starting_input #setup board
-    @player.place_ship #setup board
-    @computer.place_ship
+    @player.place_ships #setup board
+    @computer.place_ships
     unitl @player.ships.empty? || @computer.ships.empty? do
       print_boards
       @player.fire_input
@@ -50,5 +50,5 @@ end
   end
 
   def print_end_game
-  
+  end
 end
