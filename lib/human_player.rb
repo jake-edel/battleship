@@ -14,7 +14,7 @@ class HumanPlayer < Player
 
   def place_ships
     @ships.each do |ship|
-      list_ships
+      print_ships
       @board.render(true)
       puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
       coordinates = valid_input(ship)
@@ -25,7 +25,7 @@ class HumanPlayer < Player
     end
   end
 
-  def list_ships
+  def print_ships
     ship_list = 'The '
     ships.each do |ship|
       ship_list += ', the ' unless ship == ships.first || ship == ships.last
@@ -46,12 +46,15 @@ class HumanPlayer < Player
     coordinates
   end
 
-  def fire_input(enemy_board)
+  def fire_input(enemy)
+    puts 'Enter the coordinate for your shot:'
     coordinate = gets.chomp.upcase
-    until @board.valid_coordinate?(coordinate) do
+    p coordinate
+    # require 'pry-byebug'; binding.pry
+    until enemy.board.valid_coordinate?(coordinate) do
       puts 'Please enter a valid coordinate: '
       coordinate = gets.chomp.upcase
     end
-    shoot(enemy_board, coordinate)
+    shoot(enemy, coordinate)
   end
 end
