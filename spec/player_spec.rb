@@ -24,7 +24,12 @@ RSpec.describe Player do
       expect(player.ships).to be_empty
     end
 
-
-
+    it 'can load a default set of ships' do
+      player.default_ships
+      expect(player.ships).to be_instance_of Array
+      expect(player.ships.count).to be 2
+      expect(player.ships.first).to be_instance_of Ship
+      expect(player.ships.last).to be_instance_of Ship
+    end
   end
 end
