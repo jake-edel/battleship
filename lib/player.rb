@@ -2,12 +2,11 @@ require './lib/board'
 require './lib/ship'
 
 class Player
-  attr_reader :board
+  attr_reader :board, :ships
 
   def initialize
     @board = Board.new
     @ships = []
-    default_ships
   end
 
   def add_ship(name,length)
@@ -15,7 +14,7 @@ class Player
   end
 
   def default_ships
-    add_ship("cruiser", 3)
-    add_ship("submarine", 2)
+    add_ship("Cruiser", 3)
+    add_ship("Submarine", 2)
   end
 end
