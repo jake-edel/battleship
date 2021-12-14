@@ -1,4 +1,4 @@
 require './lib/player'
 
-class ComputerPlayer
-end 
+class ComputerPlayer < Player
+end
