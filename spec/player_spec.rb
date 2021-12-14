@@ -9,5 +9,14 @@ RSpec.describe Player do
         expect(player).to be_instance_of Player
       end
     end
+
+    it 'is initialized with an empty board' do
+      expect(player.board).to be_instance_of Board
+      expect(player.board.cells).to be_instance_of Hash
+      player.board.cells.each do |coordinate, cell|
+        expect(cell).to be_instance_of Cell
+        expect(cell.empty?).to be true
+      end
+    end
   end
 end
