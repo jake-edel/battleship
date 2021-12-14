@@ -46,7 +46,6 @@ class Game
       #   print_feedback
       end
     end
-  end
 
 
   def print_boards
