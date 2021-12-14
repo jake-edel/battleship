@@ -8,8 +8,8 @@ class Game
     end
 
     def start
-      print_start_message
-      start_input
+      # print_start_message
+      # start_input
       place_ships
       firing_loop
       print_end_game
@@ -39,19 +39,21 @@ class Game
     end
 
     def firing_loop
-      until @player.ships.empty? || @computer.ships.empty? do
-      #   print_boards
+      until @player.dead? || @computer.dead? do
+        print_boards
         @player.fire_input(@computer)
       #   @computer.fire_random
       #   print_feedback
+        system('clear')
       end
     end
 
 
   def print_boards
-
-    puts "\nYour Board:"
-    puts @human.board.render(true)
+    puts '=============COMPUTER BOARD============='
+    puts @computer.board.render
+    puts '=============PLAYER BOARD============='
+    puts @player.board.render(true)
   end
 
   def print_feedback
