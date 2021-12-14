@@ -24,6 +24,7 @@ class Player
   end
 
   def dead?
+    @ships.delete_if(&:sunk?)
     @ships.empty?
   end
 end
