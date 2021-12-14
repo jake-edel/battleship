@@ -2,17 +2,27 @@ require './lib/player'
 
 class HumanPlayer < Player
   def starting_input
-    option = ''
-    until option.match?(/[p,q]/i) && option.length == 1
-      option = gets.chomp
-    end
+    option = gets.chomp
     system('clear')
+    until option.match?(/[p,q]{1}/i) && option.length == 1
+      puts "Welcome to BATTLESHIP, Enter p to play. Enter q to quit"
+      option = gets.chomp
+      system('clear')
+    end
     option
   end
 
   def place_ships
-    puts list_ships
-    input_coordinates
+    @ships.each do |ship|
+      list_ships
+      @board.render(true)
+      puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
+      coordinates = valid_input(ship)
+      coordinates.each do |coordinate|
+        @board.cells[coordinate].place_ship(ship)
+      end
+      system('clear')
+    end
   end
 
   def list_ships
@@ -24,18 +34,7 @@ class HumanPlayer < Player
       ship_list += "#{ship.name} is #{ship.length} units long"
     end
     ship_list += '.'
-    ship_list
-  end
-
-  def input_coordinates
-    ships.each do |ship|
-      puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
-      coordinates = valid_input(ship)
-      coordinates.each do |coordinate|
-        @board.cells[coordinate].place_ship(ship)
-      end
-      puts @board.render(true)
-    end
+    puts ship_list
   end
 
   def valid_input(ship)
@@ -47,10 +46,12 @@ class HumanPlayer < Player
     coordinates
   end
 
-  def fire_input
+  def fire_input(enemy_board)
+    coordinate = gets.chomp.upcase
+    until @board.valid_coordinate?(coordinate) do
+      puts 'Please enter a valid coordinate: '
+      coordinate = gets.chomp.upcase
+    end
+    shoot(enemy_board, coordinate)
   end
 end
-
-human = HumanPlayer.new
-require 'pry-byebug'; binding.pry
-puts

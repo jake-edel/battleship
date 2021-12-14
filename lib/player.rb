@@ -7,6 +7,7 @@ class Player
   def initialize
     @board = Board.new
     @ships = []
+    default_ships
   end
 
   def add_ship(name,length)
@@ -16,5 +17,13 @@ class Player
   def default_ships
     add_ship("Cruiser", 3)
     add_ship("Submarine", 2)
+  end
+
+  def shoot(other, coordinate)
+    other.board.cells[coordinate].fire_upon
+  end
+
+  def dead?
+    @ships.empty?
   end
 end

@@ -7,30 +7,44 @@ class Game
     @computer = ComputerPlayer.new
     end
 
-  def start
-    print_start_message
-    @player.starting_input #setup board
-    @player.place_ships #setup board
-    @computer.place_ships
-    unitl @player.ships.empty? || @computer.ships.empty? do
-      print_boards
-      @player.fire_input
-      @computer.fire_random
-      print_feedback
+    def start
+      print_start_message
+      start_input
+      place_ships
+      firing_loop
+      print_end_game
     end
-    print_end_game
-  end
 
-  def print_start_message
-    puts "Welcome to BATTLESHIP"
-    puts "Enter p to play. Enter q to quit"
+    def print_start_message
+      system('clear')
+      puts "Welcome to BATTLESHIP, Enter p to play. Enter q to quit"
+    end
 
-    if starting_input == "q"
-    puts "Play again soon."
-    elseif starting_input  == "p"
-    puts "Let's play Battleship!"
-    else
-    puts "Please enter a p to play or a q to quit."
+    def start_input
+      quit if @player.starting_input.downcase == 'q'
+      system('clear')
+    end
+
+    def quit
+      system('clear')
+      puts "Quitters never win! Smell ya later."
+      sleep(1)
+      system('clear')
+      exit
+    end
+
+    def place_ships
+      # @computer.place_ships
+      @player.place_ships
+    end
+
+    def firing_loop
+      until @player.ships.empty? || @computer.ships.empty? do
+      #   print_boards
+        @player.fire_input(@computer)
+      #   @computer.fire_random
+      #   print_feedback
+      end
     end
   end
 
