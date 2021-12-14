@@ -8,10 +8,10 @@ class CoordinateValidator
   def valid_coordinate?(coordinate)
     return false unless /[a-d][1-4]/i.match?(coordinate) && coordinate.length == 2
 
-    coordinate_occupied?(coordinate)
+    coordinate_unoccupied?(coordinate)
   end
 
-  def coordinate_occupied?(coordinate)
+  def coordinate_unoccupied?(coordinate)
     @cells[coordinate.upcase].empty?
   end
 
