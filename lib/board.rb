@@ -34,12 +34,12 @@ class Board
     valid_placement?(ship, coordinates)
   end
 
-  def render
+  def render(show)
     grid = "  1 2 3 4 \n"
     ('A'..'D').to_a.each do |letter|
       grid += letter
       (1..4).to_a.each do |number|
-        grid += " #{@cells["#{letter}#{number}"].render}"
+        grid += " #{@cells["#{letter}#{number}"].render(show)}"
       end
       grid += "\n"
     end
