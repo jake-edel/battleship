@@ -4,8 +4,6 @@ class HumanPlayer < Player
   def starting_input
     option = ''
     until option.match?(/[p,q]/i) && option.length == 1
-      # system('clear')
-      # puts "Welcome to BATTLESHIP,  Enter p to play. Enter q to quit."
       option = gets.chomp
     end
     system('clear')
@@ -32,22 +30,27 @@ class HumanPlayer < Player
   def input_coordinates
     ships.each do |ship|
       puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
-      coordinates = valid_input
-      coordinates.each { |coordinate| board.cells[coordinate].ship = ship }
-      puts board.render(true)
+      coordinates = valid_input(ship)
+      coordinates.each do |coordinate|
+        @board.cells[coordinate].place_ship(ship)
+      end
+      puts @board.render(true)
     end
   end
 
-  def valid_input
-    coordinates = gets.chomp.split(' ')
-    until @board.valid_placement?(coordinates) do
+  def valid_input(ship)
+    coordinates = gets.chomp.upcase.split(' ')
+    until @board.valid_placement?(ship, coordinates) do
       puts 'Invalid Coordinates! Please enter a valid coordinate ex. a1 a2 a3'
-      coordinates = gets.chomp.split(' ')
+      coordinates = gets.chomp.upcase.split(' ')
     end
     coordinates
   end
 
   def fire_input
-
   end
 end
+
+human = HumanPlayer.new
+require 'pry-byebug'; binding.pry
+puts
