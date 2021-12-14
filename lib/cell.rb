@@ -6,13 +6,13 @@ class Cell
     @fired_upon = false
     @ship = nil
   end
-  
+
   def empty?
     @ship.nil?
   end
 
   def place_ship(ship)
-    @ship = ship; nil
+    @ship = ship
   end
 
   def fired_upon?
