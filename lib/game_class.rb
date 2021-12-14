@@ -39,21 +39,38 @@ class Game
     end
 
     def firing_loop
-    until @player.ships.empty? || @computer.ships.empty? do
-    #   print_boards
-      @player.fire_input(@computer)
-    #   @computer.fire_random
-    #   print_feedback
+      until @player.ships.empty? || @computer.ships.empty? do
+      #   print_boards
+        @player.fire_input(@computer)
+      #   @computer.fire_random
+      #   print_feedback
+      end
     end
   end
 
 
   def print_boards
+
+    puts "\nYour Board:"
+    puts @human.board.render(true)
   end
 
   def print_feedback
   end
 
   def print_end_game
+    if @computer.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
+      winner = 'You'
+    print_end_game = "#{winner} wins!"
+    eslif @player.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
+    winner = 'Computer'
+    print_end_game = "#{winner} is the winner! Better luck next time. "
+    end
+  puts "\n\n...............GAME OVER...............\n"
+  puts "\nComputer's final board:"
+  puts @computer.board.render(true)
+  puts "\nYour final board:"
+  puts @player.board.render(true)
+  puts print_end_game
   end
 end
