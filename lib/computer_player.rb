@@ -2,6 +2,7 @@ require './lib/player'
 
 class ComputerPlayer < Player
   def initialize
+    super
     @possible_coordinates  = []
     possible_coordinates
   end
