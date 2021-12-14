@@ -43,6 +43,6 @@ class Board
       end
       grid += "\n"
     end
-    grid
+    puts grid
   end
 end
