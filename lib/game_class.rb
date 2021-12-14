@@ -55,11 +55,18 @@ class Game
 
 
   def print_boards
+<<<<<<< HEAD
     puts '=============COMPUTER BOARD============='
     puts @computer.board.render(true)
     puts '=============PLAYER BOARD============='
     puts @player.board.render(true)
 >>>>>>> 14c0bc7 (resolve conflicts)
+=======
+
+<<<<<<< HEAD
+=======
+>>>>>>> c514f04 (remove print board)
+>>>>>>> 8bebef2 (resolve conflicts)
   end
 
   def print_feedback(player_shot, comp_shot)
