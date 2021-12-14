@@ -57,5 +57,3 @@ class Game
   def print_end_game
   end
 end
-
-Game.new.start
