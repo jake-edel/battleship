@@ -34,7 +34,7 @@ class Board
     valid_placement?(ship, coordinates)
   end
 
-  def render(show)
+  def render(show = false)
     grid = "  1 2 3 4 \n"
     ('A'..'D').to_a.each do |letter|
       grid += letter
