@@ -3,13 +3,13 @@ require './lib/human_player'
 
 class Game
     def initialize
-    @player = HumanPlayer.new
-    @computer = ComputerPlayer.new
+      @player = HumanPlayer.new
+      @computer = ComputerPlayer.new
     end
 
     def start
-      # print_start_message
-      # start_input
+      print_start_message
+      start_input
       place_ships
       firing_loop
       print_end_game
@@ -34,17 +34,18 @@ class Game
     end
 
     def place_ships
-      # @computer.place_ships
+      @computer.place_ships
       @player.place_ships
     end
 
     def firing_loop
       until @player.dead? || @computer.dead? do
-        print_boards
-        @player.fire_input(@computer)
-      #   @computer.fire_random
-      #   print_feedback
         system('clear')
+        print_boards
+        player_shot = @player.fire_input(@computer)
+        comp_shot = @computer.fire_random(@player)
+        print_feedback(player_shot, comp_shot)
+        gets
       end
     end
 
@@ -56,14 +57,25 @@ class Game
     puts @player.board.render(true)
   end
 
-  def print_feedback
+  def print_feedback(player_shot, comp_shot)
+    puts "Your shot on #{player_shot.coordinate} was a #{player_shot.empty? ? 'miss' : 'hit' }"
+
+    puts "The enemy shot on #{comp_shot.coordinate} was a #{comp_shot.empty? ? 'miss' : 'hit' }"
+
+    unless player_shot.ship.nil?
+      puts "You sunk the enemies #{player_shot.ship.name}" if player_shot.ship.sunk?
+    end
+
+    unless comp_shot.ship.nil?
+      puts "The enemy sunk your #{comp_shot.ship.name}" if comp_shot.ship.sunk?
+    end
   end
 
   def print_end_game
     if @computer.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
       winner = 'You'
     print_end_game = "#{winner} wins!"
-    eslif @player.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
+  elsif @player.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
     winner = 'Computer'
     print_end_game = "#{winner} is the winner! Better luck next time. "
     end
