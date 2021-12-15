@@ -64,6 +64,7 @@ class Game
   end
 
   def print_feedback(player_shot, comp_shot)
+  
     puts "Your shot on #{player_shot.coordinate} was a #{player_shot.empty? ? 'miss' : 'hit'}"
 
     puts "The enemy shot on #{comp_shot.coordinate} was a #{comp_shot.empty? ? 'miss' : 'hit'}"
