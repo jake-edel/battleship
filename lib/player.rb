@@ -7,7 +7,7 @@ class Player
   def initialize
     @board = Board.new
     @ships = []
-    default_ships
+    # default_ships
     @previous_shots = []
   end
 
