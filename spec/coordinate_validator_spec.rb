@@ -4,24 +4,6 @@ require './lib/board'
 
 RSpec.describe CoordinateValidator do
     before(:each) do
-      @valid_horizontals = [
-        %w[a1 a2 a3 a4],
-        %w[b1 b2 b3 b4],
-        %w[c1 c2 c3 c4],
-        %w[d1 d2 d3 d4]
-      ]
-      @valid_verticals = [
-        %w[a1 b1 c1 d1],
-        %w[a2 b2 c2 d2],
-        %w[a3 b3 c3 d3],
-        %w[a4 b4 c4 d4]
-      ]
-      @invalids = [
-        %w[aa1 b1 c1 d1],
-        %w[a2 b c2 d2],
-        %w[a3 b3 e3 d3],
-        %w[a4 b4 c 4 d4]
-      ]
       @invalid_coordinates = %w[aa1 1a 11 aa ab b11 b12 b e1 d12 d3 s1]
 
       @vertically_consectutive = [
@@ -89,32 +71,139 @@ RSpec.describe CoordinateValidator do
       ]
     end
 
-     describe '#initialize'
-       before(:each) do
-         @cells = Board.new.cells
-       end
+    describe '#initialize'
+      before(:each) do
+        @board = Board.new
+      end
 
-       it 'is intialized with a hash full of cells and an array of coordinates' do
-         @validator = CoordinateValidator.new(@cells, [])
-         expect(@validator).to be_instance_of CoordinateValidator
-       end
+      it 'is intialized with a hash full of cells and an array of coordinates' do
+        validator = CoordinateValidator.new(@board.cells, [])
+        expect(validator).to be_instance_of CoordinateValidator
+      end
+    end
 
-      describe '#ship_doesnt_fit' do
-        before(:each) do
-          @ship = Ship.new('Cruiser', 3)
+    describe '#ship_doesnt_fit' do
+      before(:each) do
+        @board = Board.new
+        @ship = Ship.new('Cruiser', 3)
+      end
+
+      it 'returns true if ship is the same size as the given array' do
+        validator = CoordinateValidator.new(@board.cells, %w[a1 a2 a3])
+        expect(validator.ship_fits?(@ship)).to be true
+      end
+
+      it 'returns false if ship is larger or smaller than given array' do
+        validator = CoordinateValidator.new(@board.cells, %w[a1 a2])
+        expect(validator.ship_fits?(@ship)).to be false
+
+        validator = CoordinateValidator.new(@board.cells, %w[a1 a2 a3 a4])
+        expect(validator.ship_fits?(@ship)).to be false
+      end
+    end
+
+    describe '#coordinates_empty?' do
+      before(:each) do
+        @board = Board.new
+      end
+
+      it 'returns true if a ship has not been placed on the coordinates' do
+        validator = CoordinateValidator.new(@board.cells, %w[a1 a2 a3 a4])
+        expect(validator.coordinates_empty?).to be true
+        validator = CoordinateValidator.new(@board.cells, %w[a1 b1 c1 d1])
+        expect(validator.coordinates_empty?).to be true
+      end
+
+      it 'returns false if a ship has been placed on the coordinates' do
+        ship = Ship.new('Battleship', 4)
+        @board.place(ship, %w[c1 c2 c3 c4])
+
+        validator = CoordinateValidator.new(@board.cells, %w[a1 a2 a3 a4])
+        expect(validator.coordinates_empty?).to be true
+        validator = CoordinateValidator.new(@board.cells, %w[a1 b1 c1 d1])
+        expect(validator.coordinates_empty?).to be false
+      end
+    end
+
+    describe '#coordinates_valid?' do
+      before(:each) do
+        @board = Board.new
+
+        @valid_horizontals = [
+          %w[a1 a2 a3 a4],
+          %w[b1 b2 b3 b4],
+          %w[c1 c2 c3 c4],
+          %w[d1 d2 d3 d4]
+        ]
+        @valid_verticals = [
+          %w[a1 b1 c1 d1],
+          %w[a2 b2 c2 d2],
+          %w[a3 b3 c3 d3],
+          %w[a4 b4 c4 d4]
+        ]
+        @invalids = [
+          %w[aa1 b1 c1 d1],
+          %w[a2 b c2 d2],
+          %w[a3 b3 e3 d3],
+          %w[a4 b4 c 4 d4]
+        ]
+      end
+
+      it 'returns true if an array of coordinates are all valid' do
+        @valid_verticals.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.coordinates_valid?).to be true
         end
 
-        it 'returns true if ship is the same size as the given array' do
-          validator = CoordinateValidator.new(@cells, %w[a1 a2 a3])
-          expect(validator.ship_fits?(@ship)).to be true
-        end
-
-        it 'returns false if ship is larger or smaller than given array' do
-          @validator = CoordinateValidator.new(@cells, %w[a1 a2])
-          expect(@validator.ship_fits?(@ship)).to be false
-
-          @validator = CoordinateValidator.new(@cells, %w[a1 a2 a3 a4])
-          expect(@validator.ship_fits?(@ship)).to be false
+        @valid_horizontals.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.coordinates_valid?).to be true
         end
       end
+
+      it 'returns false if an array of coordinates contains a single invalid coordinate'do
+        @invalids.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.coordinates_valid?).to be false
+        end
+      end
+    end
+
+    describe '#coordinates_consecutive?' do
+      it 'returns true if the array of coordinates are consecutive' do
+      end
+
+      it 'returns false if the array of coordinates are non-consecuitve' do
+      end
+    end
+    describe '#numbers_consecutive?' do
+      it 'returns true if the numbers of coordinates are consecutive' do
+      end
+
+      it 'returns false if the numbers of coordinates are non-consecuitve' do
+      end
+    end
+    describe '#letters_consecutive?' do
+      it 'returns true if the letters of coordinates are consecutive' do
+      end
+
+      it 'returns false if the letters of coordinates are non-consecuitve' do
+      end
+    end
+
+    describe 'same_column?' do
+    end
+
+    describe 'same_row?' do
+    end
+
+    describe 'coordinates_diagonal?' do
+    end
+
+    describe 'coordinates_adjacent?' do
+    end
+
+    describe 'horizontally_adjacent?' do
+    end
+    describe 'vertically_adjacent?' do
     end
