@@ -59,6 +59,7 @@ class Game
     puts @computer.board.render(true)
     puts '=============PLAYER BOARD============='
     puts @player.board.render(true)
+>>>>>>> 14c0bc7 (resolve conflicts)
   end
 
   def print_feedback(player_shot, comp_shot)
