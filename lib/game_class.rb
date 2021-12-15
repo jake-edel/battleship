@@ -45,7 +45,6 @@ class Game
         print_boards
         player_shot = @player.fire_input(@computer)
         comp_shot = @computer.fire_random(@player)
-        require 'pry-byebug'; binding.pry
         system('clear')
         print_boards
         print_feedback(player_shot, comp_shot)
