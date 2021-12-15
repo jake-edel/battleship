@@ -42,6 +42,7 @@ class Game
 
     def firing_loop
       until @player.dead? || @computer.dead? do
+        print_boards
         player_shot = @player.fire_input(@computer)
         comp_shot = @computer.fire_random(@player)
         system('clear')
