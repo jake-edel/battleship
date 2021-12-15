@@ -27,11 +27,11 @@ class Board
     CoordinateValidator.new(@cells, coordinate_array).valid_placement?(ship)
   end
 
-  def place(ship, coordinates)
-    if valid_placement?(ship, coordinates)
-      coordinates.each {|coordinate| @cells[coordinate].place_ship(ship) }
+  def place(ship, coordinate_array)
+    if valid_placement?(ship, coordinate_array)
+      coordinate_array.each { |coordinate| @cells[coordinate.upcase].place_ship(ship)} # ; puts "#{ship.name} placed at #{coordinate}"}
     end
-    valid_placement?(ship, coordinates)
+    valid_placement?(ship, coordinate_array)
   end
 
   def render(show = false)
@@ -43,6 +43,6 @@ class Board
       end
       grid += "\n"
     end
-    puts grid
+    grid
   end
 end
