@@ -1,14 +1,15 @@
 
 class CoordinateValidator
-  def initialize(cells, coordinate_array)
+  def initialize(cells, coordinate_array = [])
     @cells = cells
-    @coordinate_array = coordinate_array
+    @coordinate_array = coordinate_array.map { |coord| coord.upcase }
     @numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }
-    @letters =@coordinate_array.map(&:chr)
+    @letters = @coordinate_array.map(&:chr)
   end
 
   def valid_coordinate?(coordinate)
     return false unless /[a-d][1-4]/i.match?(coordinate) && coordinate.length == 2
+
     return false if @cells[coordinate].fired_upon?
 
     true
@@ -29,6 +30,8 @@ class CoordinateValidator
   end
 
   def coordinates_unoccupied?
+    # return true if @coordinate_array.empty?
+
     @coordinate_array.all? { |coord| @cells[coord].empty? }
   end
 
