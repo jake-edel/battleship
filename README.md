@@ -1,4 +1,4 @@
-# Battleship 🛶 ⛵️ 🚤 🛥 🛳 ⛴ 🚢
+# 🛶 ⛵️ 🚤 B A T T L E || S H I P 🛳 ⛴ 🚢
 ![external-content duckduckgo com](https://user-images.githubusercontent.com/79817178/146279874-33ee9ff4-68c3-4163-924d-62549c26f1d4.gif)
 * * *
 
