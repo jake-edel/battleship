@@ -1,3 +1,3 @@
-require './lib/game_class'
+require './lib/game'
 
 Game.new.start
