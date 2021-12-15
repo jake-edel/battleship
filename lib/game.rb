@@ -64,10 +64,10 @@ class Game
   end
 
   def print_feedback(player_shot, comp_shot)
-  
+
     puts "Your shot on #{player_shot.coordinate} was a #{player_shot.empty? ? 'miss' : 'hit'}"
 
-    puts "The enemy shot on #{comp_shot.coordinate} was a #{comp_shot.empty? ? 'miss' : 'hit'}"
+    puts "The enemy shot on #{comp_shot.coordinate} was a #{comp_shot.empty? ? 'miss' : 'hit'}\nPress enter to return fire"
 
     unless player_shot.ship.nil?
       puts "You sunk the enemies #{player_shot.ship.name}" if player_shot.ship.sunk?
