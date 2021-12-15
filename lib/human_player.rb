@@ -49,8 +49,6 @@ class HumanPlayer < Player
   def fire_input(enemy)
     puts 'Enter the coordinate for your shot:'
     coordinate = gets.chomp.upcase
-    validator = CoordinateValidator.new(enemy.board.cells, [coordinate])
-   p validator.valid_coordinate?(coordinate)
     until enemy.board.valid_coordinate?(coordinate) do
       puts 'Please enter a valid coordinate: '
       coordinate = gets.chomp.upcase

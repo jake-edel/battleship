@@ -13,6 +13,7 @@ class Game
       place_ships
       firing_loop
       print_end_game
+      start
     end
 
     def print_start_message
