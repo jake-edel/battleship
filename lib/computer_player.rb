@@ -7,15 +7,33 @@ class ComputerPlayer < Player
     possible_coordinates
   end
 
-def possible_coordinates
-end
-
-  def place_ships
-    @ships.each do |ship|
-      # place ship
+  def possible_coordinates
+    @board.cells.each do |coord, _cell|
+      @possible_coordinates << coord
     end
   end
 
-  def fire_random
+  def place_ships
+    @ships.each do |ship|
+      @board.place(ship, find_placement(ship))
+    end
+    puts 'I have placed my ships upon the board'
+  end
+
+  def find_placement(ship)
+    placement = random_coordinates(ship)
+    until @board.valid_placement?(ship, placement)
+      placement = random_coordinates(ship)
+    end
+    placement
+  end
+
+  def random_coordinates(ship)
+    @board.cells.keys.sample(ship.length).sort
+  end
+
+  def fire_random(other)
+    random_coord = @possible_coordinates.delete(@possible_coordinates.sample)
+    shoot(other, random_coord)
   end
 end
