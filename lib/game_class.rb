@@ -55,10 +55,12 @@ class Game
 
 
   def print_boards
+
     puts '=============COMPUTER BOARD============='
     puts @computer.board.render(true)
     puts '=============PLAYER BOARD============='
     puts @player.board.render(true)
+
   end
 
   def print_feedback(player_shot, comp_shot)
@@ -74,6 +76,7 @@ class Game
       puts "The enemy sunk your #{comp_shot.ship.name}" if comp_shot.ship.sunk?
     end
   end
+
 
   def print_end_game
     if @computer.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0

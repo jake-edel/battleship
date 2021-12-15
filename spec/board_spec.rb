@@ -149,8 +149,13 @@ RSpec.describe Board do
       end
     end
 
-    it 'renders board' do
-      expect(@board.render).to be_instance_of String
+   describe '#render' do
+     it 'it returns a string' do
+        expect(@board.render).to be_instance_of String
+     end
+     it 'returns a correct string' do
+        expect(@board.render).to eq("  1 2 3 4 \nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+     end
     end
   end
 end
