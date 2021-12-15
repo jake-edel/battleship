@@ -16,8 +16,8 @@ class CoordinateValidator
   end
 
   def valid_placement?(ship)
-    return false if ship_doesnt_fit(ship)
-    return false unless coordinates_unoccupied?
+    return false unless ship_fits?(ship)
+    return false unless coordinates_empty?
     return false unless coordinates_valid?
     return false unless coordinates_consecutive?
     return false if coordinates_diagonal?
@@ -25,13 +25,11 @@ class CoordinateValidator
     true
   end
 
-  def ship_doesnt_fit(ship)
-    @coordinate_array.size != ship.length
+  def ship_fits?(ship)
+    @coordinate_array.size == ship.length
   end
 
-  def coordinates_unoccupied?
-    # return true if @coordinate_array.empty?
-
+  def coordinates_empty?
     @coordinate_array.all? { |coord| @cells[coord].empty? }
   end
 
