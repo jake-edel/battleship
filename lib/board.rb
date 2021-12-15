@@ -6,7 +6,7 @@ class Board
   attr_reader :cells
 
   def initialize
-    @cells = {}
+    @cells = Hash.new { |hash,key| hash[key] = Cell.new("XX") }
     generate_cells
   end
 
@@ -20,7 +20,7 @@ class Board
 
 
   def valid_coordinate?(coordinate)
-    CoordinateValidator.new(@cells, []).valid_coordinate?(coordinate)
+    CoordinateValidator.new(@cells).valid_coordinate?(coordinate)
   end
 
   def valid_placement?(ship, coordinate_array)
@@ -29,7 +29,7 @@ class Board
 
   def place(ship, coordinate_array)
     if valid_placement?(ship, coordinate_array)
-      coordinate_array.each { |coordinate| @cells[coordinate.upcase].place_ship(ship)} # ; puts "#{ship.name} placed at #{coordinate}"}
+      coordinate_array.each { |coordinate| @cells[coordinate.upcase].place_ship(ship)}
     end
     valid_placement?(ship, coordinate_array)
   end
