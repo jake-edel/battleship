@@ -17,7 +17,8 @@ class ComputerPlayer < Player
     @ships.each do |ship|
       @board.place(ship, find_placement(ship))
     end
-    puts 'I have placed my ships upon the board'
+    puts 'I have laid my ships on the grid.'
+   puts "You now need to lay out your #{ships.count} ships."
   end
 
   def find_placement(ship)
