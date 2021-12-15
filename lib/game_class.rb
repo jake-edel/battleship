@@ -49,6 +49,7 @@ class Game
         print_boards
         print_feedback(player_shot, comp_shot)
         gets
+        system('clear')
       end
     end
 
