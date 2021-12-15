@@ -13,7 +13,7 @@ RSpec.describe Board do
     it 'returns keys = coordinates value as cell objects' do
       # Took out copies of Cell test, iterate through whole hash now
       expect(@board.cells).to be_instance_of Hash
-      @board.cells.each do |coordinate, cell|
+      @board.cells.each do |_coordinate, cell|
         expect(cell).to be_instance_of Cell
       end
     end
@@ -27,6 +27,7 @@ RSpec.describe Board do
         end
       end
     end
+
     it 'is case insensitive' do
       ('a'..'d').to_a.each do |letter|
         (1..4).to_a.each do |number|
@@ -43,7 +44,7 @@ RSpec.describe Board do
       expect(@board.valid_coordinate?('12')).to be false
       expect(@board.valid_coordinate?('ca')).to be false
       expect(@board.valid_coordinate?('e1')).to be false
-      expect(@board.valid_coordinate?('d')).to be false
+      expect(@board.valid_coordinate?('dd')).to be false
     end
   end
 
@@ -85,7 +86,12 @@ RSpec.describe Board do
         %w[D4 D3 D2 D1]
       ]
 
-      @diagonal = %w[A1 B2 C3 D4]
+      @diagonals = [
+        %w[a1 b2 c3 d4],
+        %w[d1 c2 b3 a4],
+        %w[a2 b3 d4],
+        %w[d2 c3 b4],
+      ]
     end
 
     it 'returns true if ship can be placed on coordinates provided' do
@@ -121,7 +127,7 @@ RSpec.describe Board do
     end
 
     it 'returns false if spaces are diagonal' do
-      @diagonal.each do |placement|
+      @diagonals.each do |placement|
         expect(@board.valid_placement?(@ship, placement)).to be false
       end
     end
