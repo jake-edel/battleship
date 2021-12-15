@@ -88,7 +88,7 @@ class Game
     end
   puts "\n\n...............GAME OVER...............\n"
   puts "\nComputer's final board:"
-  puts @computer.board.render(true)
+  puts @computer.board.render
   puts "\nYour final board:"
   puts @player.board.render(true)
   puts print_end_game
