@@ -3,20 +3,19 @@ class CoordinateValidator
   def initialize(cells, coordinate_array)
     @cells = cells
     @coordinate_array = coordinate_array
+    @numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }
+    @letters =@coordinate_array.map(&:chr)
   end
 
   def valid_coordinate?(coordinate)
     return false unless /[a-d][1-4]/i.match?(coordinate) && coordinate.length == 2
 
-    coordinate_unoccupied?(coordinate)
-  end
-
-  def coordinate_unoccupied?(coordinate)
-    @cells[coordinate.upcase].empty?
+    true
   end
 
   def valid_placement?(ship)
     return false if ship_doesnt_fit(ship)
+    return false unless coordinates_unoccupied?
     return false unless coordinates_valid?
     return false unless coordinates_consecutive?
     return false if coordinates_diagonal?
@@ -26,6 +25,10 @@ class CoordinateValidator
 
   def ship_doesnt_fit(ship)
     @coordinate_array.size != ship.length
+  end
+
+  def coordinates_unoccupied?
+    @coordinate_array.all? { |coord| @cells[coord].empty? }
   end
 
   def coordinates_valid?
@@ -48,13 +51,11 @@ class CoordinateValidator
   end
 
   def numbers_consecutive?
-    numbers = @coordinate_array.map { |coordinate| coordinate[-1].to_i }
-    numbers.each_cons(2).all? { |x, y| y == x + 1 }
+    @numbers.each_cons(2).all? { |x, y| y == x + 1 }
   end
 
   def letters_consecutive?
-    letters = @coordinate_array.map(&:chr)
-    letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
+    @letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
   end
 
   def same_column?
@@ -67,5 +68,20 @@ class CoordinateValidator
 
   def coordinates_diagonal?
     numbers_consecutive? && letters_consecutive?
+  end
+
+  def coordinates_adjacent?
+    return true if same_column? && vertically_adjacent?
+    return true if same_row? && horizontally_adjacent?
+
+    false
+  end
+
+  def horizontally_adjacent?
+    @numbers.each_cons(2).all? { |x, y| y.ord == x.ord + 1 || y.ord == x.ord - 1 }
+  end
+
+  def vertically_adjacent?
+    @letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 || y.ord == x.ord - 1 }
   end
 end
