@@ -6,26 +6,6 @@ RSpec.describe CoordinateValidator do
     before(:each) do
       @invalid_coordinates = %w[aa1 1a 11 aa ab b11 b12 b e1 d12 d3 s1]
 
-      @vertically_consectutive = [
-        %w[a1 b1 c1 d1 e1 f1 g1],
-        %w[a2 b2 c2 d2 e2 f2],
-        %w[a33 b33 c33 d33],
-        %w[a4 b4 c4 d4 e4]
-      ]
-
-      @horizontally_consectuive = [
-        %w[a1 a2 a3 a4 a5 a6 a7],
-        %w[b11 b12 b13 b14],
-        %w[c11 c12 c13 c14],
-        %w[d1 d2 d3 d4]
-      ]
-      @non_consectuive = [
-        %w[a1 a2 a3 a5 a6 a7],
-        %w[b11 b13 b14],
-        %w[c11 c12 c14],
-        %w[d1 d2 d3 d4 d6]
-      ]
-
       @same_column = [
         %w[a1 b1],
         %w[a1 b1 c1 d1],
@@ -170,40 +150,168 @@ RSpec.describe CoordinateValidator do
     end
 
     describe '#coordinates_consecutive?' do
+      before(:each) do
+        @board = Board.new
+
+        @vertically_consecutive = [
+          %w[a1 b1 c1 d1 e1 f1 g1],
+          %w[a2 b2 c2 d2 e2 f2],
+          %w[a33 b33 c33 d33],
+          %w[a4 b4 c4 d4 e4],
+          %w[c1 d1]
+        ]
+
+        @horizontally_consecutive = [
+          %w[a1 a2 a3 a4 a5 a6 a7],
+          %w[b11 b12 b13 b14],
+          %w[c11 c12 c13 c14],
+          %w[d1 d2 d3 d4],
+          %w[c3 c4]
+        ]
+        @non_consecutive = [
+          %w[a1 a2 a3 a5 a6 a7],
+          %w[b11 b13 b14],
+          %w[c11 c12 c14],
+          %w[d1 d2 d3 d4 d6]
+        ]
+      end
+
       it 'returns true if the array of coordinates are consecutive' do
+        @horizontally_consecutive.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.coordinates_consecutive?).to be true
+        end
+
+        @vertically_consecutive.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.coordinates_consecutive?).to be true
+        end
       end
 
       it 'returns false if the array of coordinates are non-consecuitve' do
+        @non_consecutive.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.coordinates_consecutive?).to be false
+        end
+      end
+
+      describe '#numbers_consecutive?' do
+        before(:each) do
+          @vertically_consecutive = [
+            %w[a1 b1 c1 d1 e1 f1 g1],
+            %w[a2 b2 c2 d2 e2 f2],
+            %w[a33 b33 c33 d33],
+            %w[a4 b4 c4 d4 e4],
+            %w[c1 d1]
+          ]
+
+          @horizontally_consecutive = [
+            %w[a1 a2 a3 a4 a5 a6 a7],
+            %w[b11 b12 b13 b14],
+            %w[c11 c12 c13 c14],
+            %w[d1 d2 d3 d4],
+            %w[c3 c4]
+          ]
+          @non_consecutive = [
+            %w[a1 a2 a3 a5 a6 a7],
+            %w[b11 b13 b14],
+            %w[c11 c12 c14],
+            %w[d1 d2 d3 d4 d6]
+          ]
+        end
+
+        it 'returns true if the numbers(second value) of coordinates are consecutive' do
+          @horizontally_consecutive.each do |placement|
+            validator = CoordinateValidator.new(@board.cells, placement)
+            expect(validator.numbers_consecutive?).to be true
+          end
+        end
+
+        it 'returns false if the numbers of coordinates are vertically consecuitve' do
+          @vertically_consecutive.each do |placement|
+            validator = CoordinateValidator.new(@board.cells, placement)
+            expect(validator.numbers_consecutive?).to be false
+          end
+        end
+
+        it 'returns false if the numbers of coordinates are non-consecuitve' do
+          @non_consecutive.each do |placement|
+            validator = CoordinateValidator.new(@board.cells, placement)
+            expect(validator.numbers_consecutive?).to be false
+          end
+        end
       end
     end
-    describe '#numbers_consecutive?' do
-      it 'returns true if the numbers of coordinates are consecutive' do
+
+    describe '#letters_consecutive?' do
+      before(:each) do
+        @board = Board.new
+
+        @vertically_consecutive = [
+          %w[a1 b1 c1 d1 e1 f1 g1],
+          %w[a2 b2 c2 d2 e2 f2],
+          %w[a33 b33 c33 d33],
+          %w[a4 b4 c4 d4 e4],
+          %w[c1 d1]
+        ]
+
+        @horizontally_consecutive = [
+          %w[a1 a2 a3 a4 a5 a6 a7],
+          %w[b11 b12 b13 b14],
+          %w[c11 c12 c13 c14],
+          %w[d1 d2 d3 d4],
+          %w[c3 c4]
+        ]
+        @non_consecutive = [
+          %w[a1 a2 a3 a5 a6 a7],
+          %w[c2 c4],
+          %w[a1 b1 d1],
+          %w[d1 d2 d3 d4 d6]
+        ]
+      end
+
+      it 'returns false if the letters(first value) of coordinates are consecutive' do
+        @horizontally_consecutive.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.letters_consecutive?).to be false
+        end
+      end
+
+      it 'returns true if the numbers of coordinates are vertically consecuitve' do
+        @vertically_consecutive.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.letters_consecutive?).to be true
+        end
       end
 
       it 'returns false if the numbers of coordinates are non-consecuitve' do
-      end
-    end
-    describe '#letters_consecutive?' do
-      it 'returns true if the letters of coordinates are consecutive' do
-      end
-
-      it 'returns false if the letters of coordinates are non-consecuitve' do
+        @non_consecutive.each do |placement|
+          validator = CoordinateValidator.new(@board.cells, placement)
+          expect(validator.letters_consecutive?).to be false
+        end
       end
     end
 
     describe 'same_column?' do
+      before(:each) do
+      end
     end
 
     describe 'same_row?' do
+      before(:each) do
+      end
     end
 
     describe 'coordinates_diagonal?' do
+      before(:each) do
+      end
     end
 
     describe 'coordinates_adjacent?' do
-    end
-
-    describe 'horizontally_adjacent?' do
-    end
-    describe 'vertically_adjacent?' do
+      before(:each) do
+      end
+      it 'is horizontally_adjacent?' do
+      end
+      it 'is vertically_adjacent?' do
+      end
     end
