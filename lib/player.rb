@@ -8,6 +8,7 @@ class Player
     @board = Board.new
     @ships = []
     default_ships
+    @previous_shots = []
   end
 
   def add_ship(name,length)

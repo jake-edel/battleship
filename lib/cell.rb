@@ -22,7 +22,7 @@ class Cell
   def fire_upon
     @ship&.hit unless @fired_upon
     @fired_upon = true
-    return self
+    self
   end
 
   def render(show = false)

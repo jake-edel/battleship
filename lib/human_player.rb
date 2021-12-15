@@ -48,15 +48,12 @@ class HumanPlayer < Player
   def fire_input(enemy)
     puts 'Enter the coordinate for your shot:'
     coordinate = gets.chomp.upcase
-    until enemy.board.valid_coordinate?(coordinate) do
+    until enemy.board.valid_coordinate?(coordinate) && !@previous_shots.include?(coordinate) do
       puts 'Please enter a valid coordinate: '
       coordinate = gets.chomp.upcase
-        if enemy.board.cells[coordinate].fired_upon? do
-          puts 'Cannot enter a previous coordinate'
-        end
-      end
-      p shoot(enemy, coordinate)
     end
+    shoot(enemy, coordinate)
+    @previous_shots << coordinate
     enemy.board.cells[coordinate]
   end
 end

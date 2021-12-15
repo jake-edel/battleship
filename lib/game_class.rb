@@ -56,7 +56,7 @@ class Game
 
   def print_boards
     puts '=============COMPUTER BOARD============='
-    puts @computer.board.render
+    puts @computer.board.render(true)
     puts '=============PLAYER BOARD============='
     puts @player.board.render(true)
   end
@@ -64,7 +64,6 @@ class Game
   def print_feedback(player_shot, comp_shot)
     puts "Your shot on #{player_shot.coordinate} was a #{player_shot.empty? ? 'miss' : 'hit' }"
 
-    p comp_shot
     puts "The enemy shot on #{comp_shot.coordinate} was a #{comp_shot.empty? ? 'miss' : 'hit' }"
 
     unless player_shot.ship.nil?
@@ -79,7 +78,7 @@ class Game
   def print_end_game
     if @computer.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
       winner = 'You'
-    print_end_game = "#{winner} wins!"
+    print_end_game = "#{winner} wins! Press ENTER to play again!"
   elsif @player.board.cells.values.count {|cell| cell.ship.class == Ship && cell.ship.sunk? == false } == 0
     winner = 'Computer'
     print_end_game = "#{winner} is the winner! Better luck next time. "
