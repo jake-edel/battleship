@@ -30,7 +30,6 @@ class HumanPlayer < Player
     ships.each do |ship|
       ship_list += ', the ' unless ship == ships.first || ship == ships.last
       ship_list += ' and the ' if ship == ships.last
-
       ship_list += "#{ship.name} is #{ship.length} units long"
     end
     ship_list += '.'
@@ -49,10 +48,17 @@ class HumanPlayer < Player
   def fire_input(enemy)
     puts 'Enter the coordinate for your shot:'
     coordinate = gets.chomp.upcase
+    puts 'Cannot enter a previous coordinate' if enemy.board.cells[coordinate].fired_upon?
+
     until enemy.board.valid_coordinate?(coordinate) do
       puts 'Please enter a valid coordinate: '
       coordinate = gets.chomp.upcase
+      if enemy.board.cells[coordinate].fired_upon? do
+        puts 'Cannot enter a previous coordinate'
+      end
     end
+
+
     shoot(enemy, coordinate)
   end
 end

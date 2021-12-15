@@ -9,7 +9,8 @@ class CoordinateValidator
 
   def valid_coordinate?(coordinate)
     return false unless /[a-d][1-4]/i.match?(coordinate) && coordinate.length == 2
-
+    return false if coordinate.fired_upon?
+    
     true
   end
 
