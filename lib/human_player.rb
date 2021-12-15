@@ -53,12 +53,11 @@ class HumanPlayer < Player
     until enemy.board.valid_coordinate?(coordinate) do
       puts 'Please enter a valid coordinate: '
       coordinate = gets.chomp.upcase
-      if enemy.board.cells[coordinate].fired_upon? do
-        puts 'Cannot enter a previous coordinate'
+        if enemy.board.cells[coordinate].fired_upon? do
+          puts 'Cannot enter a previous coordinate'
+        end
       end
+      shoot(enemy, coordinate)
     end
-
-
-    shoot(enemy, coordinate)
   end
 end
