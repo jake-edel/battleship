@@ -89,5 +89,6 @@ class Game
   puts "\nYour final board:"
   puts @player.board.render(true)
   puts print_end_game
+  gets
   end
 end
