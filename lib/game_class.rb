@@ -45,6 +45,7 @@ class Game
         print_boards
         player_shot = @player.fire_input(@computer)
         comp_shot = @computer.fire_random(@player)
+        require 'pry-byebug'; binding.pry
         system('clear')
         print_boards
         print_feedback(player_shot, comp_shot)
@@ -64,6 +65,7 @@ class Game
   def print_feedback(player_shot, comp_shot)
     puts "Your shot on #{player_shot.coordinate} was a #{player_shot.empty? ? 'miss' : 'hit' }"
 
+    p comp_shot
     puts "The enemy shot on #{comp_shot.coordinate} was a #{comp_shot.empty? ? 'miss' : 'hit' }"
 
     unless player_shot.ship.nil?
