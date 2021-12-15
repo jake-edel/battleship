@@ -57,7 +57,7 @@ class Game
   def print_boards
 
     puts '=============COMPUTER BOARD============='
-    puts @computer.board.render(true)
+    puts @computer.board.render
     puts '=============PLAYER BOARD============='
     puts @player.board.render(true)
 
@@ -88,7 +88,7 @@ class Game
     end
   puts "\n\n...............GAME OVER...............\n"
   puts "\nComputer's final board:"
-  puts @computer.board.render
+  puts @computer.board.render(true)
   puts "\nYour final board:"
   puts @player.board.render(true)
   puts print_end_game
