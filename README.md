@@ -18,7 +18,10 @@ Once you have placed all ships, the game will begin. You will see your board wit
 The game will end when either player loses all of their ships. You will be able to play a new game or quit the program.
 
 # Iteration 1
-
+#### Classes
+  - Ship: Has name, length, health. Can be hit and lose health. Can be sunk
+  - Cell: Has coordinate string, starts empty and can contain a ship. Keeps track of whether it has been fired upon.
+    - Cell#render: returns `.` `M` `H` or `X` depending on state of cell
 # Iteration 2
-
+  
 # Iteration 3
