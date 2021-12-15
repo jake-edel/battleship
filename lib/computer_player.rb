@@ -18,7 +18,7 @@ class ComputerPlayer < Player
       @board.place(ship, find_placement(ship))
     end
     puts 'I have laid my ships on the grid.'
-   puts "You now need to lay out your #{ships.count} ships."
+    puts "You now need to lay out your #{ships.count} ships."
   end
 
   def find_placement(ship)
