@@ -1,4 +1,4 @@
-# ~~ 🛶 ⛵️ 🚤 B A T T L E  S H I P 🛳 ⛴ 🚢 ~~
+# 🛶 🧨 ⛵️ 🔫 🚤 ~~ B A T T L E  S H I P ~~ 🛳 💣 ⛴ 🚀 🚢
 ![external-content duckduckgo com](https://user-images.githubusercontent.com/79817178/146279874-33ee9ff4-68c3-4163-924d-62549c26f1d4.gif)
 * * *
 
@@ -27,14 +27,14 @@ The game will end when either player loses all of their ships. You will be able 
     - `Board`: Contains an hash of Cell objects. Can place a ship across a series of consecutive cells. Can render its cells in a grid with labeled axis. Can validate placement through an interface with class CoordinateValidator
 # class CoordinateValidator
   - Initialized with a hash of cells and an array of coordinates. Can validate whether an inputted coordinate is a valid coordinate, whether the corresponding cell contains a ship, and whether or not an array of coordinates is a legal placement for a ship.
-    - #ship_fits?: is ship the same size as given coordinates?
-    - #coordinates_empty?: are there any other ships present at that location?
-    - #coordinates_valid?: do these coordinates exist on the grid?
-    - #horizontally/vertically_consecutive?: are these coordinates vertically and/or horizontally consecutive?
-    - #numbers/letters_consecutive?: Are all the numbers/letters in the coordinate array consecutive?
-    - #same_column/row?: Are all coordinates aligned vertically/horizontally?
-    - #coordinates_diagonal?: Are the coordinates located diagonally to each other?
-    - #horizontally/vertically adjacent?: are the cells directly above/below/next to each other?
+    - `#ship_fits?`: is ship the same size as given coordinates?
+    - `#coordinates_empty?`: are there any other ships present at that location?
+    - `#coordinates_valid?`: do these coordinates exist on the grid?
+    - `#horizontally/veritacally_consecutive?`: are these coordinates vertically and/or horizontally consecutive?
+    - `#numbers/letters_consecutive?`: Are all the numbers/letters in the coordinate array consecutive?
+    - `#same_column/row?`: Are all coordinates alligned vertically/horizontally?
+    - `#coordinates_diagonal?`: Are the coordinates located diagonally to each other?
+    - `#horizontally/vertically adjacent?`: are the cells directly above/below/next to each other?
 
 # Iteration 3
 - Creation of a functional UI/game loop, which allows a user to start a new game, enter coordinates to place ships, render the player and enemy boards, and enter coordinates to exchange fire with the computer. The game will end when either the player or computer has had all of their ships sunken.
