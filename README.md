@@ -1,12 +1,12 @@
 # 🛶 🧨 ⛵️ 🔫 🚤 ~~ B A T T L E  S H I P ~~ 🛳 💣 ⛴ 🚀 🚢
-### by Alicia Watt and Jakob Edelstein
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/79817178/146279874-33ee9ff4-68c3-4163-924d-62549c26f1d4.gif" />
 </p>
 
 * * *
 
-### A command line implementation of the classic board game
+### A command line implementation of the classic board game by Alicia Watt(@AliciaWatt) and Jakob Edelstein
 
 [Battleship Home @ Turing](https://backend.turing.edu/module1/projects/battleship/index)<br>
 [Grading Rubric](https://backend.turing.edu/module1/projects/battleship/rubric)
