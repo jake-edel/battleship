@@ -4,7 +4,7 @@
 
 ### A command line implementation of the classic board game
 
-[Battleship Home @ Turing](https://backend.turing.edu/module1/projects/battleship/index)
+[Battleship Home @ Turing](https://backend.turing.edu/module1/projects/battleship/index)<br>
 [Grading Rubric](https://backend.turing.edu/module1/projects/battleship/rubric)
 
 * * *
