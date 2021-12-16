@@ -5,15 +5,19 @@ require './lib/ship'
 class Board
   attr_reader :cells
 
-  def initialize
+  def initialize(size)
     @cells = Hash.new { |hash,key| hash[key] = Cell.new("XX") }
-    generate_cells
+    generate_cells(size)
   end
 
-  def generate_cells
-    ("A".."D").to_a.each do |letter|
-      (1..4).to_a.each do |number|
-        @cells["#{letter}#{number}"] = Cell.new("#{letter}#{number}")
+  def generate_cells(size)
+    @letters = ('A'..'Z').to_a
+    @numbers = (1..26).to_a
+
+    size.times do |i|
+      size.times do |j|
+        coord = "#{@letters[i]}#{@numbers[j].to_s}"
+        @cells[coord] = Cell.new(coord)
       end
     end
   end
@@ -36,9 +40,9 @@ class Board
 
   def render(show = false)
     grid = "  1 2 3 4 \n"
-    ('A'..'D').to_a.each do |letter|
+    @letters.each do |letter|
       grid += letter
-      (1..4).to_a.each do |number|
+      @numbers.to_a.each do |number|
         grid += " #{@cells["#{letter}#{number}"].render(show)}"
       end
       grid += "\n"

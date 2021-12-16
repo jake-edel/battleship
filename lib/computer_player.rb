@@ -1,7 +1,7 @@
 require './lib/player'
 
 class ComputerPlayer < Player
-  def initialize
+  def initialize(_size)
     super
     @possible_coordinates  = []
     possible_coordinates
@@ -26,10 +26,12 @@ class ComputerPlayer < Player
     until @board.valid_placement?(ship, placement)
       placement = random_coordinates(ship)
     end
+    p placement
     placement
   end
 
   def random_coordinates(ship)
+    require 'pry-byebug'; binding.pry
     @board.cells.keys.sample(ship.length).sort
   end
 

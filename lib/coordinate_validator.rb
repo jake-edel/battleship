@@ -8,7 +8,7 @@ class CoordinateValidator
   end
 
   def valid_coordinate?(coordinate)
-    return false unless /[a-d][1-4]/i.match?(coordinate) && coordinate.length == 2
+    return false unless /[a-i][1-9]/.match?(coordinate) && coordinate.length == 2
 
     return false if @cells[coordinate].fired_upon?
 

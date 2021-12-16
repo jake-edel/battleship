@@ -4,8 +4,8 @@ require './lib/ship'
 class Player
   attr_reader :board, :ships
 
-  def initialize
-    @board = Board.new
+  def initialize(size)
+    @board = Board.new(size)
     @ships = []
     default_ships
     @previous_shots = []
@@ -27,5 +27,9 @@ class Player
   def dead?
     @ships.delete_if(&:sunk?)
     @ships.empty?
+  end
+
+  def new_board(size)
+    @board = Board.new(size)
   end
 end

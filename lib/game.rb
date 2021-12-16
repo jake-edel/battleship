@@ -2,13 +2,10 @@ require './lib/computer_player'
 require './lib/human_player'
 
 class Game
-    def initialize
-      @player = HumanPlayer.new
-      @computer = ComputerPlayer.new
-    end
-
     def start
-      print_start_message
+      print_welcome_message
+      new_game(input_size)
+      start_prompt
       start_input
       place_ships
       firing_loop
@@ -17,14 +14,33 @@ class Game
       start
     end
 
-    def print_start_message
+    def print_welcome_message
       system('clear')
-      puts "Welcome to BATTLESHIP, Enter p to play. Enter q to quit"
+      puts "Welcome to BATTLESHIP"
     end
+
+    def new_game(size)
+      @player = HumanPlayer.new(size)
+      @computer = ComputerPlayer.new(size)
+    end
+
+def start_prompt
+  puts "Enter p to play. Enter q to quit"
+end
 
     def start_input
       quit if @player.starting_input.downcase == 'q'
       system('clear')
+    end
+
+    def input_size
+      puts "Enter width of grid: "
+      size = gets.chomp.to_i
+      until size <= 10 && size.positive?
+        puts 'Max grid size 10'
+        size = gets.chomp.to_i
+      end
+      size
     end
 
     def quit
