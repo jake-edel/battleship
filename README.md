@@ -46,4 +46,3 @@ The game will end when either player loses all of their ships. You will be able 
       - `HumanPlayer`: Sub-class of player, interface for a human player. Prompts and validates user input.
       - `ComputerPlayer`: Sub-class of player, contains methods for automatically playing the game. Will randomly place ships at beginning of game and randomly fire upon a unique coordinate during its turn.
   - `Game`: main loop to start game, make calls to player and computer class, render boards and feedback and end game
-  # Iteration 4
