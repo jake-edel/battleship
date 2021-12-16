@@ -28,6 +28,7 @@ The game will end when either player loses all of their ships. You will be able 
 # Iteration 2
   #### Classes
     - `Board`: Contains an hash of Cell objects. Can place a ship across a series of consecutive cells. Can render its cells in a grid with labeled axis. Can validate placement through an interface with class CoordinateValidator
+    
 # class CoordinateValidator
   - Initialized with a hash of cells and an array of coordinates. Can validate whether an inputted coordinate is a valid coordinate, whether the corresponding cell contains a ship, and whether or not an array of coordinates is a legal placement for a ship.
     - `#ship_fits?`: is ship the same size as given coordinates?
