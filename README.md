@@ -7,9 +7,8 @@
 * * *
 
 ### A command line implementation of the classic board game
-<br><br>
+<br>
 by [Alicia Watt](https://github.com/AliciaWatt) and [Jakob Edelstein](https://github.com/jake-edel)
-
 [Battleship Home @ Turing](https://backend.turing.edu/module1/projects/battleship/index)<br>
 [Grading Rubric](https://backend.turing.edu/module1/projects/battleship/rubric)
 
