@@ -7,7 +7,6 @@
 * * *
 
 ### A command line implementation of the classic board game
-<br>
 
 [Alicia Watt](https://github.com/AliciaWatt) <br>
 [Jakob Edelstein](https://github.com/jake-edel)
